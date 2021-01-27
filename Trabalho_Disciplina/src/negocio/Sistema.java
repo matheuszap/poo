@@ -31,6 +31,10 @@ public class Sistema {
 		}
 	}
 	
+	public List<Aluno> retornaLista(){
+		return ListaAlunos;
+	}
+	
 	
 	
 	
