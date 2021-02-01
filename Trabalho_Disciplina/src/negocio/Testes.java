@@ -16,6 +16,8 @@ public class Testes {
 			System.out.println("---------- MENU ---------");
 			System.out.println("1 - Cadastrar um aluno");
 			System.out.println("2 - Cadastrar um Semestre");
+			System.out.println("3 - Mostrar Alunos");
+			System.out.println("4 - Mostrar Semestres");
 			System.out.println("-------------------------");
 
 			
@@ -23,16 +25,17 @@ public class Testes {
 			
 			switch(opcao) {
 				case 1:
-					cadAluno();
+					sistema.cadastrarAluno();
 					break;
 				case 2:
-					
+					sistema.cadastrarSemestre();
 					break;
 				case 3:
-					
+					sistema.mostraAlunos();
 					break;
 				case 4:
-					mostraAlunos();
+					sistema.mostraSemestres();
+					break;
 				case 5:
 					menu = false;
 					break;
@@ -40,36 +43,7 @@ public class Testes {
 					System.out.println("O Comando digitado é inválido!\n");
 					break;
 			}
-		}
-	}
-	
-	public static void cadAluno() {
-		System.out.println("Nome: ");
-		String nome = leitor.next();
-		System.out.println("CPF: ");
-		int cpf = leitor.nextInt();
-		System.out.println("Curso: ");
-		String curso = leitor.next();
-		
-		Aluno a = new Aluno();
-		List<Semestre> s = new ArrayList<Semestre>();
-		
-		a.setNome(nome);
-		a.setCpf(cpf);
-		a.setCurso(curso);
-		a.setSemestre(s);
-		
-		sistema.cadastrarAluno(a);
-	}
-	
-	public static void mostraAlunos() {
-		List<Aluno> l = new ArrayList<Aluno>();
-		
-		l = sistema.retornaLista();
-		
-		for(int i=0; i<l.size(); i++) {
-			System.out.println(i + " - " + l.get(i).getNome());
-		}
+		}	
 	}
 
 }
