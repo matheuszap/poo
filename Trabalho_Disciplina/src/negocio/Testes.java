@@ -20,6 +20,9 @@ public class Testes {
 			System.out.println("4 - Mostrar Semestres");
 			System.out.println("5 - Cadastrar Disciplina");
 			System.out.println("6 - Mostrar Disciplinas");
+			System.out.println("7 - Cadastrar Avaliação");
+			System.out.println("8 - Mostrar Avaliações");
+			System.out.println("9 - Editar");
 			System.out.println("-------------------------");
 
 			
@@ -44,7 +47,16 @@ public class Testes {
 				case 6:
 					sistema.mostraDisciplinas();
 					break;
+				case 7:
+					sistema.cadastrarAvaliacao();
+					break;
+				case 8:
+					sistema.mostraAvaliacoes();
+					break;
 				case 9:
+					sistema.editar();
+					break;
+				case 20:
 					menu = false;
 					break;
 				default: 

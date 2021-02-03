@@ -96,13 +96,15 @@ public class Sistema {
 		String departamento = leitor.next();
 		
 		Disciplina d = new Disciplina();
-		List<Float> n = new ArrayList<Float>();
+		List<Float> notas = new ArrayList<Float>();
+		List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
 		
 		d.setNome(nome);
 		d.setCodigo(codigo);
 		d.setDepartamento(departamento);
-		d.setNotas(n);
+		d.setNotas(notas);
 		d.setNota_exame(0);
+		d.setAvaliacao(avaliacoes);
 		
 		return d;
 	}
@@ -120,7 +122,7 @@ public class Sistema {
 		disciplinas.add(d);
 	}
 	
-	public void mostraDisciplinas() {
+	public int mostraDisciplinas() {
 		int op1 = mostraSemestres();
 		
 		System.out.println("Escolha um semestre para mostrar as disciplinas:");
@@ -131,6 +133,91 @@ public class Sistema {
 		for(int i=0; i<disciplinas.size(); i++) {
 			System.out.println(i + " - " + "Nome: " + disciplinas.get(i).getNome());
 		}
+		
+		return op2;
+	}
+	
+	public Avaliacao criaAvaliacao() {
+		System.out.println("Tema da avaliação: ");
+		String nome = leitor.next();
+		System.out.println("Peso: ");
+		float peso = leitor.nextFloat();
+		System.out.println("Data: ");
+		String data = leitor.next();
+		
+		Avaliacao a = new Avaliacao();
+		
+		a.setNome(nome);
+		a.setPeso(peso);
+		a.setData(data);
+		
+		return a;
+	}
+	
+	public void cadastrarAvaliacao() {
+		int op1 = mostraSemestres();
+		int op2 = mostraDisciplinas();
+		
+		System.out.println("Escolha uma disciplina para cadastrar uma avaliação: ");
+		int op3 = leitor.nextInt();
+		
+		List<Avaliacao> avaliacoes = ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina().get(op3).getAvaliacao();
+		
+		Avaliacao a = criaAvaliacao();
+		
+		avaliacoes.add(a);		
+	}
+	
+	public void mostraAvaliacoes() {
+		int op1 = mostraSemestres();
+		int op2 = mostraDisciplinas();
+		
+		System.out.println("Escolha uma disciplina para mostrar as avaliações: ");
+		int op3 = leitor.nextInt();
+		
+		List<Avaliacao> avaliacoes = ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina().get(op3).getAvaliacao();
+		
+		for(int i=0; i<avaliacoes.size(); i++) {
+			System.out.println(i + " - " + "Tema: " + avaliacoes.get(i).getNome() + " Peso: " + avaliacoes.get(i).getPeso() + " Data: "
+					+ avaliacoes.get(i).getData());
+		}
+	}
+	
+	public void editar() {
+		System.out.println("----- MENU DE EDIÇÃO ----- ");
+		System.out.println("1. Remover um semestre");
+		System.out.println("2. Remover uma disciplina");
+		System.out.println("--------------------------");
+		
+		int op = leitor.nextInt();
+		
+		if(op == 1) {
+			int op2 = mostraSemestres();
+			
+			System.out.println("Escolha um semestre para ser removido: ");
+			
+			int op3 = leitor.nextInt();
+			
+			List<Semestre> s = ListaAlunos.get(op2).getSemestre();
+			
+			s.remove(op3);
+		}
+		
+		if(op == 2) {
+			int op1 = mostraSemestres();
+			int op2 = mostraDisciplinas();
+			
+			System.out.println("Escolha uma disciplina para ser removida: ");
+			
+			int op3 = leitor.nextInt();
+			
+			List<Disciplina> disciplinas = ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina();
+			
+			disciplinas.remove(op3);
+		}
+		
+
+		
 	}
  	
 }
