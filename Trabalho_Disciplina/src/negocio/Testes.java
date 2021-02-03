@@ -18,6 +18,8 @@ public class Testes {
 			System.out.println("2 - Cadastrar um Semestre");
 			System.out.println("3 - Mostrar Alunos");
 			System.out.println("4 - Mostrar Semestres");
+			System.out.println("5 - Cadastrar Disciplina");
+			System.out.println("6 - Mostrar Disciplinas");
 			System.out.println("-------------------------");
 
 			
@@ -37,6 +39,12 @@ public class Testes {
 					sistema.mostraSemestres();
 					break;
 				case 5:
+					sistema.cadastrarDisciplina();
+					break;
+				case 6:
+					sistema.mostraDisciplinas();
+					break;
+				case 9:
 					menu = false;
 					break;
 				default: 

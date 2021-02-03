@@ -74,7 +74,7 @@ public class Sistema {
 		s.add(semestre);
 	}
 	
-	public void mostraSemestres() {
+	public int mostraSemestres() {
 		System.out.println("Escolha um aluno para mostrar o semestre:");
 		mostraAlunos();
 		
@@ -82,9 +82,56 @@ public class Sistema {
 		List<Semestre> s = ListaAlunos.get(op).getSemestre();
 		
 		for(int i=0; i<s.size(); i++) {
-			System.out.println("Código Semestre: " + s.get(i).getCodigo() + " Fase: " + s.get(i).getFase());
+			System.out.println(i + " - Código Semestre: " + s.get(i).getCodigo() + " Fase: " + s.get(i).getFase());
 		}
+		return op;
 	}
 	
+	public Disciplina criaDisciplina() {
+		System.out.println("Nome: ");
+		String nome = leitor.next();
+		System.out.println("Código: ");
+		int codigo = leitor.nextInt();
+		System.out.println("Departamento: ");
+		String departamento = leitor.next();
+		
+		Disciplina d = new Disciplina();
+		List<Float> n = new ArrayList<Float>();
+		
+		d.setNome(nome);
+		d.setCodigo(codigo);
+		d.setDepartamento(departamento);
+		d.setNotas(n);
+		d.setNota_exame(0);
+		
+		return d;
+	}
+	
+	public void cadastrarDisciplina() {
+		int op1 = mostraSemestres();
+		
+		System.out.println("Escolha um semestre para cadastrar as disciplinas:");
+		int op2 = leitor.nextInt();
+		
+		List<Disciplina> disciplinas = ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina();
+		
+		Disciplina d = criaDisciplina();
+		
+		disciplinas.add(d);
+	}
+	
+	public void mostraDisciplinas() {
+		int op1 = mostraSemestres();
+		
+		System.out.println("Escolha um semestre para mostrar as disciplinas:");
+		int op2 = leitor.nextInt();
+		
+		List<Disciplina> disciplinas = ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina();
+		
+		for(int i=0; i<disciplinas.size(); i++) {
+			System.out.println(i + " - " + "Nome: " + disciplinas.get(i).getNome());
+		}
+	}
+ 	
 }
 
