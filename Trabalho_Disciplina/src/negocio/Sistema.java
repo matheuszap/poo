@@ -183,6 +183,76 @@ public class Sistema {
 		}
 	}
 	
+	public void inserirNotas() {
+		int op1 = mostraSemestres();
+		int op2 = mostraDisciplinas();
+		
+		System.out.println("Escolha uma disciplina para inserir suas notas: ");
+		int op3 = leitor.nextInt();
+		
+		List<Float> notas = ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina().get(op3).getNotas();
+		
+		System.out.println("Digite suas notas: (Digite -1 para finalizar)");
+		
+		float n = 0;
+		float soma = 0;
+		
+		while(n != -1) {
+			n = leitor.nextFloat();
+			
+			if(n != -1) {
+				notas.add(n);
+			}
+			
+			soma += n;
+		}
+	}
+	
+	public void mostraNotas() {
+		int op1 = mostraSemestres();
+		int op2 = mostraDisciplinas();
+		
+		System.out.println("Escolha uma disciplina para mostrar suas notas: ");
+		int op3 = leitor.nextInt();
+		
+		List<Float> notas = ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina().get(op3).getNotas();
+		
+		System.out.println("Suas notas para a disciplina de " + ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina().get(op3).getNome() + " são:");
+		
+		for(int i=0; i<notas.size(); i++) {
+			System.out.println("Nota " + i + ": " + notas.get(i));
+		}
+	}
+	
+	public void calcularMedia() {
+		int op1 = mostraSemestres();
+		int op2 = mostraDisciplinas();
+		
+		System.out.println("Escolha uma disciplina para calcular sua média: ");
+		int op3 = leitor.nextInt();
+		
+		List<Float> notas = ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina().get(op3).getNotas();
+		
+		float soma = 0;
+		
+		for(int i=0; i<notas.size(); i++) {
+			soma += notas.get(i);
+		}
+		
+		float media = soma/notas.size();
+		
+		System.out.println("Sua média para a disciplina de " + ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina().get(op3).getNome() + ": " + media);
+		
+		float nota_exame = 0;
+		
+		if(media >= 7) {
+			System.out.println("Você está aprovado!");
+		}else {
+			nota_exame = (float) ((-1.5*media)+12.5);
+			System.out.println("Nota necessária para o exame: " + nota_exame);
+		}
+	}
+	
 	public void editar() {
 		System.out.println("----- MENU DE EDIÇÃO ----- ");
 		System.out.println("1. Remover um semestre");

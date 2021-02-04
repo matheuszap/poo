@@ -22,7 +22,10 @@ public class Testes {
 			System.out.println("6 - Mostrar Disciplinas");
 			System.out.println("7 - Cadastrar Avaliação");
 			System.out.println("8 - Mostrar Avaliações");
-			System.out.println("9 - Editar");
+			System.out.println("9 - Inserir Notas");
+			System.out.println("10 - Mostrar Notas");
+			System.out.println("11 - Calcular Média");
+			System.out.println("15 - Editar");
 			System.out.println("-------------------------");
 
 			
@@ -54,6 +57,15 @@ public class Testes {
 					sistema.mostraAvaliacoes();
 					break;
 				case 9:
+					sistema.inserirNotas();
+					break;
+				case 10:
+					sistema.mostraNotas();
+					break;
+				case 11:
+					sistema.calcularMedia();
+					break;
+				case 15:
 					sistema.editar();
 					break;
 				case 20:
