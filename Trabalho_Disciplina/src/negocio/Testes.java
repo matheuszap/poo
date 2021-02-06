@@ -25,7 +25,9 @@ public class Testes {
 			System.out.println("9 - Inserir Notas");
 			System.out.println("10 - Mostrar Notas");
 			System.out.println("11 - Calcular Média");
+			System.out.println("12 - Gerar Relatório");
 			System.out.println("15 - Editar");
+			System.out.println("20 - Sair");
 			System.out.println("-------------------------");
 
 			
@@ -64,6 +66,9 @@ public class Testes {
 					break;
 				case 11:
 					sistema.calcularMedia();
+					break;
+				case 12:
+					sistema.GerarRelatorio();
 					break;
 				case 15:
 					sistema.editar();

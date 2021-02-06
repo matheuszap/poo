@@ -8,14 +8,9 @@ public class Disciplina {
 	private int codigo;
 	private String departamento;
 	private List<Float> notas = new ArrayList<Float>();
-	private float nota_exame;
+	private float mf;
 	
 	private List<Avaliacao> avaliacao = new ArrayList<Avaliacao>();
-
-	public String toString() {
-		return "Disciplina [nome=" + nome + ", codigo=" + codigo + ", departamento=" + departamento + ", notas=" + notas
-				+ ", nota_exame=" + nota_exame + ", avaliacao=" + avaliacao + "]";
-	}
 
 	public String getNome() {
 		return nome;
@@ -49,14 +44,6 @@ public class Disciplina {
 		this.notas = notas;
 	}
 
-	public float getNota_exame() {
-		return nota_exame;
-	}
-
-	public void setNota_exame(float nota_exame) {
-		this.nota_exame = nota_exame;
-	}
-
 	public List<Avaliacao> getAvaliacao() {
 		return avaliacao;
 	}
@@ -64,6 +51,15 @@ public class Disciplina {
 	public void setAvaliacao(List<Avaliacao> avaliacao) {
 		this.avaliacao = avaliacao;
 	}
+	
+	public float getMf() {
+		return mf;
+	}
+
+	public void setMf(float mf) {
+		this.mf = mf;
+	}
+
 	
 	
 }

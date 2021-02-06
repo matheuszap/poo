@@ -5,6 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 
 public class Sistema {
 	private List<Aluno> ListaAlunos = new ArrayList <Aluno>();
@@ -103,7 +114,7 @@ public class Sistema {
 		d.setCodigo(codigo);
 		d.setDepartamento(departamento);
 		d.setNotas(notas);
-		d.setNota_exame(0);
+		d.setMf(0);
 		d.setAvaliacao(avaliacoes);
 		
 		return d;
@@ -245,6 +256,8 @@ public class Sistema {
 		
 		float nota_exame = 0;
 		
+		ListaAlunos.get(op1).getSemestre().get(op2).getDisciplina().get(op3).setMf(media);
+		
 		if(media >= 7) {
 			System.out.println("Você está aprovado!");
 		}else {
@@ -285,10 +298,61 @@ public class Sistema {
 			
 			disciplinas.remove(op3);
 		}
-		
-
-		
 	}
- 	
+	
+	public void GerarRelatorio() {
+		System.out.println("Escolha um aluno para gerar o relatório:");
+		mostraAlunos();
+		
+		int op = leitor.nextInt();
+		
+		List<Semestre> s = ListaAlunos.get(op).getSemestre();
+		
+		Document doc = new Document();
+        String arquivoPDF = "relatorio.pdf";
+        
+        try {
+        	PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+        	doc.open();
+        	
+        	Paragraph p = new Paragraph("Relatório Geral");
+        	p.setAlignment(1);
+        	doc.add(p);
+        	
+        	p = new Paragraph("\n");
+  
+        	doc.add(p);
+        	
+        	PdfPTable table = new PdfPTable(3);
+        	
+        	PdfPCell cel1 = new PdfPCell(new Paragraph("Semestre"));
+        	PdfPCell cel2 = new PdfPCell(new Paragraph("Disciplina"));
+        	PdfPCell cel3 = new PdfPCell(new Paragraph("Média Final"));
+        	
+        	table.addCell(cel1);
+        	table.addCell(cel2);
+        	table.addCell(cel3);
+        	
+        	for (Semestre semestre : s) {
+            	cel1 = new PdfPCell(new Paragraph(semestre.getFase()+""));	
+            	List<Disciplina> d = semestre.getDisciplina();
+            	for(int i=0; i<d.size(); i++) {
+            	cel2 = new PdfPCell(new Paragraph(semestre.getDisciplina().get(i).getNome()+""));
+            	cel3 = new PdfPCell(new Paragraph(semestre.getDisciplina().get(i).getMf()+""));
+	            	
+	            	table.addCell(cel1);
+	            	table.addCell(cel2);
+	            	table.addCell(cel3);
+            	}
+        	}
+        	
+        	doc.add(table);
+        	doc.close();
+        	Desktop.getDesktop().open(new File(arquivoPDF));
+        	
+        } catch(Exception e) {
+        	
+        }
+       
+	}	
 }
-
