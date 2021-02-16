@@ -9,6 +9,7 @@ public class Disciplina {
 	private String departamento;
 	private List<Float> notas = new ArrayList<Float>();
 	private float media_final;
+	private float nota_exame;
 	
 	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
 	
@@ -60,6 +61,14 @@ public class Disciplina {
 		this.avaliacoes = avaliacoes;
 	}
 
+	public float getNota_exame() {
+		return nota_exame;
+	}
+
+	public void setNota_exame(float nota_exame) {
+		this.nota_exame = nota_exame;
+	}
+
 	public float calcularMedia() {
 		List<Float> n = new ArrayList<Float>();
 		
@@ -104,10 +113,9 @@ public class Disciplina {
 		}
 	}
 	
-	
 	public String dadosDisciplina() {
 		return "Disciplina [nome=" + nome + ", codigo=" + codigo + ", departamento=" + departamento + ", notas=" + notas
-				+ ", media_final=" + media_final + ", avaliacoes=" + avaliacoes + "]";
+				+ ", media_final=" + media_final + ", nota_exame=" + nota_exame + ", avaliacoes=" + avaliacoes + "]";
 	}
 
 	public boolean equals(Object obj) {

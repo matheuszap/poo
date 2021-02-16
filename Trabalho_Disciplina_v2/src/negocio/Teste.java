@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Teste {
-
+	
 	public static void main(String[] args) {
 		Sistema sistema = new Sistema();
 		
@@ -40,7 +40,7 @@ public class Teste {
 		semestre.setDisciplinas(d);
 		
 		sistema.cadastrarSemestre(115, semestre);
-		/*
+		
 		Semestre semestre2 = new Semestre();
 		List<Disciplina> d2 = new ArrayList<Disciplina>();
 		
@@ -49,12 +49,16 @@ public class Teste {
 		semestre2.setDisciplinas(d2);
 		
 		sistema.cadastrarSemestre(115, semestre2);
-		*/
+		
 		///////////////////////////////////////////////////////
 		
 		Disciplina disciplina = new Disciplina();
 		List<Avaliacao> av = new ArrayList<Avaliacao>();
 		List<Float> notas = new ArrayList<Float>();
+		
+		notas.add((float) 8);
+		notas.add((float) 8);
+		notas.add((float) 8);
 		
 		disciplina.setNome("poo");
 		disciplina.setCodigo(0001);
@@ -64,10 +68,17 @@ public class Teste {
 		disciplina.setAvaliacoes(av);
 		
 		sistema.cadastrarDisciplina(115, semestre, disciplina);
+		sistema.calcularMedia(115, semestre, disciplina);
+		sistema.calcularMediaExame(115, semestre, disciplina);
 		
 		Disciplina disciplina2 = new Disciplina();
 		List<Avaliacao> av2 = new ArrayList<Avaliacao>();
 		List<Float> notas2 = new ArrayList<Float>();
+		
+		notas2.add((float) 6.5);
+		notas2.add((float) 6.5);
+		notas2.add((float) 6.5);
+		
 		
 		disciplina2.setNome("cdi");
 		disciplina2.setCodigo(0002);
@@ -77,12 +88,17 @@ public class Teste {
 		disciplina2.setAvaliacoes(av2);
 		
 		sistema.cadastrarDisciplina(115, semestre, disciplina2);
+		sistema.calcularMedia(115, semestre, disciplina2);
+		sistema.calcularMediaExame(115, semestre, disciplina2);
 		
 		
-		/*
 		Disciplina disciplina3 = new Disciplina();
 		List<Avaliacao> av3 = new ArrayList<Avaliacao>();
 		List<Float> notas3 = new ArrayList<Float>();
+		
+		notas3.add((float) 9);
+		notas3.add((float) 9);
+		notas3.add((float) 9);
 		
 		disciplina3.setNome("ali");
 		disciplina3.setCodigo(0003);
@@ -92,7 +108,28 @@ public class Teste {
 		disciplina3.setAvaliacoes(av3);
 		
 		sistema.cadastrarDisciplina(115, semestre2, disciplina3);
-		*/
+		sistema.calcularMedia(115, semestre2, disciplina3);
+		sistema.calcularMediaExame(115, semestre2, disciplina3);
+		
+		Disciplina disciplina4 = new Disciplina();
+		List<Avaliacao> av4 = new ArrayList<Avaliacao>();
+		List<Float> notas4 = new ArrayList<Float>();
+		
+		notas4.add((float) 10);
+		notas4.add((float) 10);
+		notas4.add((float) 10);
+		
+		disciplina4.setNome("lfa");
+		disciplina4.setCodigo(0004);
+		disciplina4.setDepartamento("Computação");
+		disciplina4.setMedia_final(0);
+		disciplina4.setNotas(notas4);
+		disciplina4.setAvaliacoes(av4);
+		
+		sistema.cadastrarDisciplina(115, semestre2, disciplina4);
+		sistema.calcularMedia(115, semestre2, disciplina4);
+		sistema.calcularMediaExame(115, semestre2, disciplina4);
+		
 		
 		///////////////////////////////////////////////////////
 		
@@ -116,6 +153,18 @@ public class Teste {
 		
 		List<Aluno> ListaAlunos = sistema.retornaLista();
 		
+		//sistema.removerSemestre(115, 1);
+		//sistema.removerSemestre(115, 2);
+		//sistema.removerDisciplina(115, 1, "cdi");
+		//sistema.removerDisciplina(115, 1, "poo");
+		//sistema.removerDisciplina(115, 2, "ali");
+		
+		//sistema.removerAvaliacao(115, 1, "poo", "p1");
+		//sistema.removerAvaliacao(115, 1, "cdi", "p2");
+		
+		sistema.GerarRelatorio(a);
+		
+		/*
 		System.out.println("ALUNO: ");
 		for(int i=0;i<ListaAlunos.size();i++) {
 			System.out.println("Num: " + i + " Nome: " + ListaAlunos.get(i).getNome() + " CPF: " + ListaAlunos.get(i).getCpf());
@@ -147,6 +196,8 @@ public class Teste {
 					System.out.println("-------------------------------------------");
 				}	
 			}
+		*/
+			
 		
 		
 		}
