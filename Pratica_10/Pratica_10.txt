@@ -1,0 +1,40 @@
+create table endereco(
+	id int,
+	rua varchar(50),
+	numero int,
+	cep int,
+	cidade varchar(50),
+	estado varchar(50),
+	pais varchar(50),
+
+	primary key (id)
+);
+
+create sequence id_endereco;
+
+create table animais(
+	id int,
+	nome varchar(50),
+	idade int,
+	descricao varchar(50),
+
+	primary key(id)
+);
+
+create sequence id_animais;
+
+create table pessoa(
+	id int,
+	nome varchar(50),
+	cpf int,
+	id_animal int,
+	id_endereco int,
+
+	primary key(id),
+	foreign key(id_animal) references animais,
+	foreign key(id_endereco) references endereco
+);
+
+create sequence id_pessoa;
+
+
