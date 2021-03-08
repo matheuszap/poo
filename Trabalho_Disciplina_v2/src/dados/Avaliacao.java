@@ -1,10 +1,14 @@
 package dados;
 
 public class Avaliacao {
+	private int id; //Criado BD
+	
 	private int codigo;
 	private String nome;
 	private float peso;
 	private String data;
+	
+	private int id_disciplina; //Criado BD
 	
 	public int getCodigo() {
 		return codigo;

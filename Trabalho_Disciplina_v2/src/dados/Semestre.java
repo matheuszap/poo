@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Semestre {
+	private int id; //Criado BD
+	
 	private int codigo;
 	private int fase;
 	
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
+	private int id_aluno; //Criado BD
+	
 	public int getCodigo() {
 		return codigo;
 	}

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno {
+	private int id; //Criado BD
+	
 	private String nome;
 	private int cpf;
 	private String curso;

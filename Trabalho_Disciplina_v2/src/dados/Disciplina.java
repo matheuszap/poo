@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Disciplina {
+	private int id; //Criado BD
+	
 	private String nome;
 	private int codigo;
 	private String departamento;
@@ -12,6 +14,8 @@ public class Disciplina {
 	private float nota_exame;
 	
 	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+	
+	private int id_semestre; //Criado BD
 	
 	public String getNome() {
 		return nome;
