@@ -16,7 +16,24 @@ public class Disciplina {
 	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
 	
 	private int id_semestre; //Criado BD
-	
+
+	public Disciplina(int id, String nome, int codigo, String departamento, List<Float> notas, float media_final,
+			float nota_exame, List<Avaliacao> avaliacoes) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.codigo = codigo;
+		this.departamento = departamento;
+		this.notas = notas;
+		this.media_final = media_final;
+		this.nota_exame = nota_exame;
+		this.avaliacoes = avaliacoes;
+	}
+
+	public Disciplina() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -71,6 +88,22 @@ public class Disciplina {
 
 	public void setNota_exame(float nota_exame) {
 		this.nota_exame = nota_exame;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId_semestre() {
+		return id_semestre;
+	}
+
+	public void setId_semestre(int id_semestre) {
+		this.id_semestre = id_semestre;
 	}
 
 	public float calcularMedia() {

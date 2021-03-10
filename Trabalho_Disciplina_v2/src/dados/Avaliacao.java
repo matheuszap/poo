@@ -10,6 +10,21 @@ public class Avaliacao {
 	
 	private int id_disciplina; //Criado BD
 	
+	public Avaliacao(int id, int codigo, String nome, float peso, String data) {
+		super();
+		this.id = id;
+		this.codigo = codigo;
+		this.nome = nome;
+		this.peso = peso;
+		this.data = data;
+	}
+
+
+	public Avaliacao() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public int getCodigo() {
 		return codigo;
 	}
@@ -34,7 +49,19 @@ public class Avaliacao {
 	public void setData(String data) {
 		this.data = data;
 	}
-
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getId_disciplina() {
+		return id_disciplina;
+	}
+	public void setId_disciplina(int id_disciplina) {
+		this.id_disciplina = id_disciplina;
+	}
+	
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
