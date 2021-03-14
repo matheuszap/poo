@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno {
-	private int id; //Criado BD
+	private int codal; //Criado BD
 	
 	private String nome;
 	private int cpf;
@@ -12,6 +12,27 @@ public class Aluno {
 	
 	private List<Semestre> semestres = new ArrayList<Semestre>();
 	
+	public Aluno() {
+		
+	}
+	
+	public Aluno(int codal, String nome, int cpf, String curso, List<Semestre> semestres) {
+		super();
+		this.codal = codal;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.curso = curso;
+		this.semestres = semestres;
+	}
+
+	public int getCodal() {
+		return codal;
+	}
+
+	public void setCodal(int codal) {
+		this.codal = codal;
+	}
+
 	public String getNome() {
 		return nome;
 	}

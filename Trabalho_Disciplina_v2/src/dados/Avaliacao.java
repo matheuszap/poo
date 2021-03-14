@@ -1,18 +1,18 @@
 package dados;
 
 public class Avaliacao {
-	private int id; //Criado BD
+	private int coda; //Criado BD
 	
 	private int codigo;
 	private String nome;
 	private float peso;
 	private String data;
 	
-	private int id_disciplina; //Criado BD
+	private int codd; //Criado BD
 	
 	public Avaliacao(int id, int codigo, String nome, float peso, String data) {
 		super();
-		this.id = id;
+		this.coda = id;
 		this.codigo = codigo;
 		this.nome = nome;
 		this.peso = peso;
@@ -49,17 +49,17 @@ public class Avaliacao {
 	public void setData(String data) {
 		this.data = data;
 	}
-	public int getId() {
-		return id;
+	public int getCoda() {
+		return coda;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setcoda(int coda) {
+		this.coda = coda;
 	}
-	public int getId_disciplina() {
-		return id_disciplina;
+	public int getCodd() {
+		return codd;
 	}
-	public void setId_disciplina(int id_disciplina) {
-		this.id_disciplina = id_disciplina;
+	public void setCodd(int codd) {
+		this.codd = codd;
 	}
 	
 	public boolean equals(Object obj) {

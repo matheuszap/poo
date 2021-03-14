@@ -1,9 +1,14 @@
 package negocio;
 
 import dados.*;
+import exceptions.SelectException;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import persistencia.*;
+
 
 public class Teste {
 	
@@ -19,7 +24,9 @@ public class Teste {
 		a.setSemestres(s);
 		
 		sistema.cadastrarAluno(a);
-		/*
+		
+		Conexao.setSenha("11032007mz");
+		
 		Aluno a2 = new Aluno();
 		List<Semestre> s2 = new ArrayList<Semestre>();
 
@@ -29,7 +36,8 @@ public class Teste {
 		a2.setSemestres(s2);
 		
 		sistema.cadastrarAluno(a2);
-		*/
+		
+		
 		///////////////////////////////////////////////////////
 		
 		Semestre semestre = new Semestre();
@@ -162,7 +170,30 @@ public class Teste {
 		//sistema.removerAvaliacao(115, 1, "poo", "p1");
 		//sistema.removerAvaliacao(115, 1, "cdi", "p2");
 		
-		sistema.GerarRelatorio(a);
+		//sistema.GerarRelatorio(a);
+		
+		try {
+			AlunoDAO alunoDAO  = AlunoDAO.getInstance();
+			SemestreDAO semestreDAO = SemestreDAO.getInstance();
+			DisciplinaDAO disciplinaDAO = DisciplinaDAO.getInstance();
+			AvaliacaoDAO avaliacaoDAO = AvaliacaoDAO.getInstance();
+			
+			//alunoDAO.insert(a);
+			//semestreDAO.insert(semestre2, 1);
+			//disciplinaDAO.insert(disciplina, 3);
+			avaliacaoDAO.insert(avaliacao, 7);
+			
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SelectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		/*
 		System.out.println("ALUNO: ");

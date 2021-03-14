@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Disciplina {
-	private int id; //Criado BD
+	private int codd; //Criado BD
 	
 	private String nome;
 	private int codigo;
@@ -15,16 +15,17 @@ public class Disciplina {
 	
 	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
 	
-	private int id_semestre; //Criado BD
+	private int cods; //Criado BD
 
-	public Disciplina(int id, String nome, int codigo, String departamento, List<Float> notas, float media_final,
-			float nota_exame, List<Avaliacao> avaliacoes) {
+	
+	
+	public Disciplina(int codd, String nome, int codigo, String departamento, float media_final, float nota_exame,
+			List<Avaliacao> avaliacoes) {
 		super();
-		this.id = id;
+		this.codd = codd;
 		this.nome = nome;
 		this.codigo = codigo;
 		this.departamento = departamento;
-		this.notas = notas;
 		this.media_final = media_final;
 		this.nota_exame = nota_exame;
 		this.avaliacoes = avaliacoes;
@@ -90,20 +91,20 @@ public class Disciplina {
 		this.nota_exame = nota_exame;
 	}
 
-	public int getId() {
-		return id;
+	public int getCodd() {
+		return codd;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCodd(int codd) {
+		this.codd = codd;
 	}
 
-	public int getId_semestre() {
-		return id_semestre;
+	public int getCods() {
+		return cods;
 	}
 
-	public void setId_semestre(int id_semestre) {
-		this.id_semestre = id_semestre;
+	public void setCods(int cods) {
+		this.cods = cods;
 	}
 
 	public float calcularMedia() {
