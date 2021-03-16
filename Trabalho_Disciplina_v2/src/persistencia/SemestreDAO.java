@@ -29,14 +29,14 @@ public class SemestreDAO {
 	}
 	
 	
-	private SemestreDAO() throws ClassNotFoundException, SQLException, SelectException {
+	public SemestreDAO() throws ClassNotFoundException, SQLException, SelectException {
 		Connection conexao = Conexao.getConexao();
 		
 		selectNewId = conexao.prepareStatement("select nextval('id_semestre')");
 		insert = conexao.prepareStatement("insert into semestre values (?,?,?,?)");
 		delete = conexao.prepareStatement("delete from semestre where cods = ?");
 		select = conexao.prepareStatement("select * from semestre where codal = ?");
-		update = conexao.prepareStatement("update semestre set nome = ? where cods = ?");
+		update = conexao.prepareStatement("update semestre set codigo = ?, fase = ? where cods = ?");
 		
 		disciplinaDAO = DisciplinaDAO.getInstance();
 	}
@@ -66,10 +66,12 @@ public class SemestreDAO {
 	}
 	
 	public void update(Semestre semestre) throws SQLException {
-		int cods = selectNewId();
+		//int cods = selectNewId();
+		int cods = semestre.getCods();
 		
-		insert.setInt(1, semestre.getCodigo());
-		insert.setInt(2, cods);
+		update.setInt(1, semestre.getCodigo());
+		update.setInt(2, semestre.getFase());
+		update.setInt(3, cods);
 		
 		update.executeUpdate();
 	}

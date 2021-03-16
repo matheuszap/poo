@@ -13,6 +13,7 @@ import persistencia.*;
 public class Teste {
 	
 	public static void main(String[] args) {
+		/*
 		Sistema sistema = new Sistema();
 		
 		Aluno a = new Aluno();

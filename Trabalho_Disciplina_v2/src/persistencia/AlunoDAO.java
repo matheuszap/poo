@@ -62,7 +62,8 @@ public class AlunoDAO {
 	}
 	
 	public void update(Aluno aluno) throws SQLException {
-		int codal = selectNewId();
+		//int codal = selectNewId();
+		int codal = aluno.getCodal();
 		
 		update.setString(1, aluno.getNome());
 		update.setInt(2, aluno.getCpf());

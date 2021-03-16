@@ -1,6 +1,8 @@
 package negocio;
 
 import dados.*;
+import exceptions.SelectException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,63 +11,150 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
+import persistencia.*;
 
 public class Sistema {
-	private List<Aluno> ListaAlunos = new ArrayList <Aluno>();
-	static Scanner leitor = new Scanner(System.in);
+	private AlunoDAO alunoDAO;
+	private SemestreDAO semestreDAO;
+	private DisciplinaDAO disciplinaDAO;
+	private AvaliacaoDAO avaliacaoDAO;
 	
-	public void cadastrarAluno(Aluno aluno) {
-		if(aluno != null) {
-			ListaAlunos.add(aluno);
-		}
+	public Sistema() throws ClassNotFoundException, SQLException, SelectException {
+		alunoDAO = new AlunoDAO();
+		semestreDAO = new SemestreDAO();
+		disciplinaDAO = new DisciplinaDAO();
+		avaliacaoDAO = new AvaliacaoDAO();
 	}
 	
-	public void cadastrarSemestre(int cpf, Semestre semestre) {
-		for(int i=0; i<ListaAlunos.size(); i++) {
-			if(ListaAlunos.get(i).getCpf() == cpf) {
-				ListaAlunos.get(i).adicionarSemestre(semestre);
+	public void cadastrarAluno(Aluno aluno) throws SQLException {
+		alunoDAO.insert(aluno);
+	}
+	
+	public void removerAluno(Aluno aluno) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
+		
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				alunoDAO.delete(la.get(i));
 			}
 		}
 	}
 	
-	public void cadastrarDisciplina(int cpf, Semestre semestre, Disciplina disciplina) {
-		int fase = semestre.getFase();
+	public void editarAluno(Aluno aluno) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
 		
-		for(int i=0; i<ListaAlunos.size(); i++) {
-			if(ListaAlunos.get(i).getCpf() == cpf) {
-				List<Semestre> s = ListaAlunos.get(i).getSemestres();
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
 				
-				for(int j=0; j<s.size(); j++) {
-					if(s.get(j).getFase() == fase) {
-						s.get(j).adicionarDisciplina(disciplina);
-					}	
+				alunoDAO.update(aluno);
+			}
+		}
+	}
+	
+	public void cadastrarSemestre(Aluno aluno, Semestre semestre) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
+		
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
+				semestreDAO.insert(semestre, aluno);
+			}
+		}	
+	}
+	
+	public void removerSemestre(Aluno aluno, Semestre semestre) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
+		
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
+		
+				List<Semestre> ls = semestreDAO.selectAll(aluno.getCodal());
+				
+				for(int j=0; j<ls.size(); j++) {
+					if(ls.get(j).getCodigo() == semestre.getCodigo()) {
+						semestreDAO.delete(ls.get(j));
+					}
 				}
 			}
 		}
 	}
 	
-	public void cadastrarAvaliacao(int cpf, Semestre semestre, Disciplina disciplina, Avaliacao avaliacao) {
-		int fase = semestre.getFase();
-		int codigo = avaliacao.getCodigo();
+	public void editarSemestre(Aluno aluno, Semestre semestre) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
 		
-		for(int i=0; i<ListaAlunos.size(); i++) {
-			if(ListaAlunos.get(i).getCpf() == cpf) {
-				List<Semestre> s = ListaAlunos.get(i).getSemestres();
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
+		
+				List<Semestre> ls = semestreDAO.selectAll(aluno.getCodal());
 				
-				for(int j=0; j<s.size(); j++) {
-					if(s.get(j).getFase() == fase) {
-						List<Disciplina> d = s.get(j).getDisciplinas();
+				for(int j=0; j<ls.size(); j++) {
+					if(ls.get(j).getCodigo() == semestre.getCodigo()) {
+						semestre.setCods(ls.get(j).getCods());
 						
-						for(int k=0; k<d.size(); k++) {
-							if(d.get(k).getCodigo() == codigo) {
-								d.get(k).adicionarAvaliacao(avaliacao);
+						semestreDAO.update(semestre);
+					}
+				}
+			}
+		}
+	}
+	
+	public void cadastrarDisciplina(Aluno aluno, Semestre semestre, Disciplina disciplina) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
+		
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
+				
+				List<Semestre> ls = semestreDAO.selectAll(aluno.getCodal());
+				
+				for(int j=0; j<ls.size(); j++) {
+					if(ls.get(j).getCodigo() == semestre.getCodigo()) {
+						semestre.setCods(ls.get(j).getCods());
+						
+						float media = calcularMedia(aluno, semestre, disciplina);
+						disciplina.setMedia_final(media);
+						
+						if(media < 7) {
+							float media_exame = calcularNotaExame(aluno, semestre, disciplina);
+							disciplina.setNota_exame(media_exame);
+						}
+						
+						disciplinaDAO.insert(disciplina, semestre);
+					}
+				}
+			}
+		}
+	}
+	
+	public void removerDisciplina(Aluno aluno, Semestre semestre, Disciplina disciplina) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
+		
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
+				
+				List<Semestre> ls = semestreDAO.selectAll(aluno.getCodal());
+				
+				for(int j=0; j<ls.size(); j++) {
+					if(ls.get(j).getCodigo() == semestre.getCodigo()) {
+						semestre.setCods(ls.get(j).getCods());
+						
+						List<Disciplina> ld = disciplinaDAO.selectAll(semestre.getCods());
+						
+						for(int k=0; k<ld.size(); k++) {
+							if(ld.get(k).getCodigo() == disciplina.getCodigo()) {
+								disciplinaDAO.delete(ld.get(k));
 							}
 						}
 					}
@@ -74,50 +163,34 @@ public class Sistema {
 		}
 	}
 	
-	public void calcularMedia(int cpf, Semestre semestre, Disciplina disciplina) {
-		int fase = semestre.getFase();
-		String nome = disciplina.getNome();
-		float media = 0;
+	public void editarDisciplina(Aluno aluno, Semestre semestre, Disciplina disciplina) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
 		
-		for(int i=0; i<ListaAlunos.size(); i++) {
-			if(ListaAlunos.get(i).getCpf() == cpf) {
-				List<Semestre> s = ListaAlunos.get(i).getSemestres();
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
 				
-				for(int j=0; j<s.size(); j++) {
-					if(s.get(j).getFase() == fase) {
-						List<Disciplina> d = s.get(j).getDisciplinas();
+				List<Semestre> ls = semestreDAO.selectAll(aluno.getCodal());
+				
+				for(int j=0; j<ls.size(); j++) {
+					if(ls.get(j).getCodigo() == semestre.getCodigo()) {
+						semestre.setCods(ls.get(j).getCods());
 						
-						for(int k=0; k<d.size(); k++) {
-							if(d.get(k).getNome() == nome) {
-								media = d.get(k).calcularMedia();
+						List<Disciplina> ld = disciplinaDAO.selectAll(semestre.getCods());
+						
+						for(int k=0; k<ld.size(); k++) {
+							if(ld.get(k).getCodigo() == disciplina.getCodigo()) {
+								disciplina.setCodd(ld.get(k).getCodd());
 								
-								d.get(k).setMedia_final(media);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	public void calcularMediaExame(int cpf, Semestre semestre, Disciplina disciplina) {
-		int fase = semestre.getFase();
-		String nome = disciplina.getNome();
-		float media = 0;
-		
-		for(int i=0; i<ListaAlunos.size(); i++) {
-			if(ListaAlunos.get(i).getCpf() == cpf) {
-				List<Semestre> s = ListaAlunos.get(i).getSemestres();
-				
-				for(int j=0; j<s.size(); j++) {
-					if(s.get(j).getFase() == fase) {
-						List<Disciplina> d = s.get(j).getDisciplinas();
-						
-						for(int k=0; k<d.size(); k++) {
-							if(d.get(k).getNome() == nome) {
-								media = d.get(k).calcularNotaExame();
+								float media = calcularMedia(aluno, semestre, disciplina);
+								disciplina.setMedia_final(media);
 								
-								d.get(k).setNota_exame(media);
+								if(media < 7) {
+									float media_exame = calcularNotaExame(aluno, semestre, disciplina);
+									disciplina.setNota_exame(media_exame);
+								}
+								
+								disciplinaDAO.update(disciplina);
 							}
 						}
 					}
@@ -126,57 +199,127 @@ public class Sistema {
 		}
 	}
 	
-	public void removerSemestre(int cpf, int fase) {
-		for(int i=0; i<ListaAlunos.size(); i++) {
-			if(ListaAlunos.get(i).getCpf() == cpf) {
-				ListaAlunos.get(i).removerSemestre(fase);			
-			}
-		}
-	}
-	
-	public void removerDisciplina(int cpf, int fase, String nome_dis) {
-		for(int i=0; i<ListaAlunos.size(); i++) {
-			if(ListaAlunos.get(i).getCpf() == cpf) {
-				List<Semestre> s = ListaAlunos.get(i).getSemestres();
-				
-				for(int j=0; j<s.size(); j++) {
-					if(s.get(j).getFase() == fase) {
-						s.get(j).removerDisciplina(nome_dis);
-					}
-				}
-			}
-		}
-	}
-	
-	public void removerAvaliacao(int cpf, int fase, String nome_dis, String nome_ava) {
-		for(int i=0; i<ListaAlunos.size(); i++) {
-			if(ListaAlunos.get(i).getCpf() == cpf) {
-				List<Semestre> s = ListaAlunos.get(i).getSemestres();
-				
-				for(int j=0; j<s.size(); j++) {
-					if(s.get(j).getFase() == fase) {
-						List<Disciplina> d = s.get(j).getDisciplinas();
-						
-						
-						for(int k=0; k<d.size(); k++) {
-							if(d.get(k).getNome() == nome_dis) {
-								d.get(k).removerAvaliacao(nome_ava);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	
-	public void GerarRelatorio(Aluno aluno) {
-		int cpf = aluno.getCpf();
+	public void cadastrarAvaliacao(Aluno aluno, Semestre semestre, Disciplina disciplina, Avaliacao avaliacao) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
 		
-		for(int i=0; i<ListaAlunos.size(); i++) {
-			if(ListaAlunos.get(i).getCpf() == cpf) {
-				List<Semestre> s = ListaAlunos.get(i).getSemestres();
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
+				
+				List<Semestre> ls = semestreDAO.selectAll(aluno.getCodal());
+				
+				for(int j=0; j<ls.size(); j++) {
+					if(ls.get(j).getCodigo() == semestre.getCodigo()) {
+						semestre.setCods(ls.get(j).getCods());
+						
+						List<Disciplina> ld = disciplinaDAO.selectAll(semestre.getCods());
+						
+						for(int k=0; k<ld.size(); k++) {
+							if(ld.get(k).getCodigo() == disciplina.getCodigo()) {
+								disciplina.setCodd(ld.get(k).getCodd());
+								
+								avaliacaoDAO.insert(avaliacao, disciplina);		
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	
+	public void removerAvaliacao(Aluno aluno, Semestre semestre, Disciplina disciplina, Avaliacao avaliacao) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
+		
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
+				
+				List<Semestre> ls = semestreDAO.selectAll(aluno.getCodal());
+				
+				for(int j=0; j<ls.size(); j++) {
+					if(ls.get(j).getCodigo() == semestre.getCodigo()) {
+						semestre.setCods(ls.get(j).getCods());
+						
+						List<Disciplina> ld = disciplinaDAO.selectAll(semestre.getCods());
+						
+						for(int k=0; k<ld.size(); k++) {
+							if(ld.get(k).getCodigo() == disciplina.getCodigo()) {
+								disciplina.setCodd(ld.get(k).getCodd());
+								
+								List<Avaliacao> lav = avaliacaoDAO.selectAll(disciplina.getCodd());
+								
+								for(int l=0; l<lav.size(); l++) {
+									if(lav.get(l).getCodigo() == avaliacao.getCodigo()) {
+										avaliacaoDAO.delete(lav.get(l));
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public void editarAvaliacao(Aluno aluno, Semestre semestre, Disciplina disciplina, Avaliacao avaliacao) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
+		
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
+				
+				List<Semestre> ls = semestreDAO.selectAll(aluno.getCodal());
+				
+				for(int j=0; j<ls.size(); j++) {
+					if(ls.get(j).getCodigo() == semestre.getCodigo()) {
+						semestre.setCods(ls.get(j).getCods());
+						
+						List<Disciplina> ld = disciplinaDAO.selectAll(semestre.getCods());
+						
+						for(int k=0; k<ld.size(); k++) {
+							if(ld.get(k).getCodigo() == disciplina.getCodigo()) {
+								disciplina.setCodd(ld.get(k).getCodd());
+								
+								List<Avaliacao> lav = avaliacaoDAO.selectAll(disciplina.getCodd());
+								
+								for(int l=0; l<lav.size(); l++) {
+									if(lav.get(l).getCodigo() == avaliacao.getCodigo()) {
+										avaliacao.setcoda(lav.get(l).getCoda());
+										
+										avaliacaoDAO.update(avaliacao);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public float calcularMedia(Aluno aluno, Semestre semestre, Disciplina disciplina) throws SQLException {
+		 float media = 0;		 
+		 media = disciplina.calcularMedia();
+		 
+		 return media;
+	}
+	
+	public float calcularNotaExame(Aluno aluno, Semestre semestre, Disciplina disciplina) throws SQLException {
+		float media_exame = 0;
+		media_exame = disciplina.calcularNotaExame();
+		
+		return media_exame;
+	}
+	
+	public void GerarRelatorio(Aluno aluno) throws SQLException {
+		List<Aluno> la = alunoDAO.selectAll();
+		
+		for(int i=0; i<la.size(); i++) {
+			if(la.get(i).getCpf() == aluno.getCpf()) {
+				aluno.setCodal(la.get(i).getCodal());
+		
+				List<Semestre> s = semestreDAO.selectAll(aluno.getCodal());
+				
 				Document doc = new Document();
 		        String arquivoPDF = "relatorio.pdf";
 		        
@@ -222,13 +365,51 @@ public class Sistema {
 		        } catch(Exception e) {
 		        	
 		        }
-			}
-		}	
+			}		
+		}
 	}
-	
-	public List<Aluno> retornaLista() {
-		return ListaAlunos;
-	}
-	
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

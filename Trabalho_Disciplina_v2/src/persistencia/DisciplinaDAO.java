@@ -32,14 +32,14 @@ public class DisciplinaDAO {
 		return instance;
 	}
 
-	private DisciplinaDAO() throws ClassNotFoundException, SQLException, SelectException {
+	public DisciplinaDAO() throws ClassNotFoundException, SQLException, SelectException {
 		Connection conexao = Conexao.getConexao();
 		
 		selectNewId = conexao.prepareStatement("select nextval('id_disciplina')");
 		insert = conexao.prepareStatement("insert into disciplina values (?,?,?,?,?,?,?)");
-		delete = conexao.prepareStatement("delete from avaliacao where coda = ?");
+		delete = conexao.prepareStatement("delete from disciplina where codd = ?");
 		select = conexao.prepareStatement("select * from disciplina where cods = ?");
-		update = conexao.prepareStatement("update avaliacao set nome = ? where codd = ?");
+		update = conexao.prepareStatement("update disciplina set nome = ?, codigo = ?, departamento = ?, media_final = ?, nota_exame = ? where codd = ?");
 		
 		avaliacaoDAO = AvaliacaoDAO.getInstance();	
 	}
@@ -73,15 +73,15 @@ public class DisciplinaDAO {
 	}
 	
 	public void update(Disciplina disciplina) throws SQLException {
-			
-			int codd = selectNewId();
+			//int codd = selectNewId();
+			int codd = disciplina.getCodd();
 		
 			update.setString(1, disciplina.getNome());
-			//update.setInt(2, disciplina.getCodigo());
-			//update.setString(3, disciplina.getDepartamento());
-			//update.setFloat(5, disciplina.getMedia_final());
-			//update.setFloat(6, disciplina.getNota_exame());
-			update.setInt(2, codd);
+			update.setInt(2, disciplina.getCodigo());
+			update.setString(3, disciplina.getDepartamento());
+			update.setFloat(4, disciplina.getMedia_final());
+			update.setFloat(5, disciplina.getNota_exame());
+			update.setInt(6, codd);
 			
 			update.executeUpdate();
 			

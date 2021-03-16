@@ -32,7 +32,7 @@ public class AvaliacaoDAO {
 	}
 	
 	
-	private AvaliacaoDAO() throws ClassNotFoundException, SQLException, SelectException{
+	public AvaliacaoDAO() throws ClassNotFoundException, SQLException, SelectException{
 		Connection conexao = Conexao.getConexao();
 		
 		selectNewId = conexao.prepareStatement("select nextval('id_avaliacao')");
@@ -90,14 +90,14 @@ public class AvaliacaoDAO {
 	}
 	
 	public void update(Avaliacao avaliacao) throws SQLException {
-		
-			int coda = selectNewId();
+			//int coda = selectNewId();
+			int coda = avaliacao.getCoda();
 	
-			update.setInt(1, coda);
-			update.setInt(2, avaliacao.getCodigo());
-			update.setString(3, avaliacao.getNome());
-			update.setFloat(4, avaliacao.getPeso());
-			update.setString(5, avaliacao.getData());
+			update.setInt(1, avaliacao.getCodigo());
+			update.setString(2, avaliacao.getNome());
+			update.setFloat(3, avaliacao.getPeso());
+			update.setString(4, avaliacao.getData());
+			update.setInt(5, coda);
 			
 			update.executeUpdate();
 			
