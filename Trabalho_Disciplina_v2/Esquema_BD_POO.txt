@@ -1,0 +1,59 @@
+create table avaliacao (
+	coda int,
+
+	codigo int,
+	nome varchar(50),
+	peso float,
+	data date,
+	
+	codd int,
+	
+	primary key(coda),
+	foreign key(codd) references disciplina
+);
+
+create sequence id_avaliacao;
+
+create table disciplina(
+	codd int,
+
+	nome varchar(50),
+	codigo int,
+	departamento varchar(50),
+	media_final float,
+	nota_exame float,
+	
+	cods int,
+	
+	primary key(codd),
+	foreign key(cods) references semestre
+);
+
+create sequence id_disciplina;
+
+create table semestre(
+	cods int,
+
+	codigo int,
+	fase int,
+	
+	codal int,
+	
+	primary key(cods),
+	foreign key(codal) references aluno
+);
+
+create sequence id_semestre;
+
+create table aluno(
+	codal int,
+
+	nome varchar(50),
+	cpf int,
+	curso varchar(50),
+	
+	primary key(codal)
+);
+
+create sequence id_aluno;
+
