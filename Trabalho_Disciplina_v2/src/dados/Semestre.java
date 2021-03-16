@@ -65,20 +65,6 @@ public class Semestre {
 		this.codal = codal;
 	}
 
-	public void adicionarDisciplina(Disciplina d) {
-		if(d != null) {
-			disciplinas.add(d);
-		}
-	}
-	
-	public void removerDisciplina(String nome) {
-		for(int i=0;i<disciplinas.size(); i++) {
-			if(nome.equals(disciplinas.get(i).getNome())) {
-				disciplinas.remove(i);
-			}
-		}
-	}
-
 	public String dadosSemestre() {
 		return "Semestre [codigo=" + codigo + ", fase=" + fase + ", disciplinas=" + disciplinas + "]";
 	}

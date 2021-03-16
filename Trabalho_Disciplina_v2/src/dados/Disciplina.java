@@ -137,20 +137,6 @@ public class Disciplina {
 		}
 	}
 	
-	public void adicionarAvaliacao(Avaliacao av) {
-		if(av != null) {
-			avaliacoes.add(av);
-		}
-	}
-	
-	public void removerAvaliacao(String nome) {
-		for(int i=0; i<avaliacoes.size(); i++) {
-			if(nome.equals(avaliacoes.get(i).getNome())) {
-				avaliacoes.remove(i);
-			}
-		}
-	}
-	
 	public String dadosDisciplina() {
 		return "Disciplina [nome=" + nome + ", codigo=" + codigo + ", departamento=" + departamento + ", notas=" + notas
 				+ ", media_final=" + media_final + ", nota_exame=" + nota_exame + ", avaliacoes=" + avaliacoes + "]";
