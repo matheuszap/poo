@@ -85,11 +85,8 @@ public class AvaliacaoDAO {
 				String data = rs.getString(5);
 				
 				a.add(new Avaliacao(id, codigo, nome, peso, data));
-				
-				return a;
 			}
-		
-		return null;
+		return a;
 	}
 	
 	public void update(Avaliacao avaliacao) throws SQLException {

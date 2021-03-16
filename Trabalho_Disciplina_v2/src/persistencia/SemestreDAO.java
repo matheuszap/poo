@@ -12,7 +12,7 @@ import exceptions.SelectException;
 
 public class SemestreDAO {
 	private static SemestreDAO instance = null;
-	private static DisciplinaDAO disciplinaDAO = null;
+	private static DisciplinaDAO disciplinaDAO;
 	
 	private PreparedStatement selectNewId;
 	private PreparedStatement insert;
@@ -37,7 +37,8 @@ public class SemestreDAO {
 		delete = conexao.prepareStatement("delete from semestre where cods = ?");
 		select = conexao.prepareStatement("select * from semestre where codal = ?");
 		update = conexao.prepareStatement("update semestre set nome = ? where cods = ?");
-	
+		
+		disciplinaDAO = DisciplinaDAO.getInstance();
 	}
 	
 	public int selectNewId() throws SQLException {
@@ -80,8 +81,8 @@ public class SemestreDAO {
 	
 	public List<Semestre> selectAll(int codal) throws SQLException {
 		List<Semestre> semestres = new LinkedList<Semestre>();
-		select.setInt(1, codal);
 		
+		select.setInt(1, codal);
 		ResultSet rs = select.executeQuery();
 		
 		while(rs.next()) {
@@ -89,9 +90,9 @@ public class SemestreDAO {
 			int codigo = rs.getInt(2);
 			int fase = rs.getInt(3);
 			
+			List<Disciplina> disc = disciplinaDAO.selectAll(id);
 			
-			List<Disciplina> disciplinas = disciplinaDAO.selectAll(rs.getInt(1));
-			Semestre s = new Semestre(id, codigo, fase, disciplinas);
+			Semestre s = new Semestre(id, codigo, fase, disc);
 			
 			semestres.add(s);	
 		}

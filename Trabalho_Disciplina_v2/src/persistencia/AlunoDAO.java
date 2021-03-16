@@ -29,7 +29,7 @@ public class AlunoDAO {
 	}
 	
     
-    public AlunoDAO() throws ClassNotFoundException, SQLException {
+    public AlunoDAO() throws ClassNotFoundException, SQLException,  SelectException {
 		Connection conexao = Conexao.getConexao();
 		
 		selectNewId = conexao.prepareStatement("select nextval('id_aluno')");
@@ -37,6 +37,8 @@ public class AlunoDAO {
 		delete = conexao.prepareStatement("delete from aluno where codal = ?");
 		select = conexao.prepareStatement("select * from aluno");
 		update = conexao.prepareStatement("update aluno set nome = ?, cpf = ?, curso = ? where codal = ?");
+		
+		semestreDAO = SemestreDAO.getInstance();
     }
     
 	public int selectNewId() throws SQLException {

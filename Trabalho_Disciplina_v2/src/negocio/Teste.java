@@ -179,10 +179,34 @@ public class Teste {
 			AvaliacaoDAO avaliacaoDAO = AvaliacaoDAO.getInstance();
 			
 			//alunoDAO.insert(a);
-			//semestreDAO.insert(semestre2, 1);
-			//disciplinaDAO.insert(disciplina, 3);
-			avaliacaoDAO.insert(avaliacao, 7);
+			//semestreDAO.insert(semestre, 14);
+			//disciplinaDAO.insert(disciplina, 5);
+			//avaliacaoDAO.insert(avaliacao, 9);
 			
+			List<Avaliacao> lista_avaliacoes = avaliacaoDAO.selectAll(9);
+			List<Disciplina> lista_disciplinas = disciplinaDAO.selectAll(5);
+			List<Semestre> lista_semestres = semestreDAO.selectAll(14);
+			List<Aluno> lista_alunos = alunoDAO.selectAll();
+			
+			for(int i=0; i<lista_alunos.size(); i++) {
+				System.out.println("codal: " + lista_alunos.get(i).getCodal() + " nome: " + lista_alunos.get(i).getNome());
+			}
+			
+			for(int i=0; i<lista_semestres.size(); i++) {
+				System.out.println("cods: " + lista_semestres.get(i).getCods() + " Fase: " + lista_semestres.get(i).getFase());			
+			}
+			
+			
+			for(int i=0; i<lista_disciplinas.size(); i++) {
+				System.out.println("codd: " + lista_disciplinas.get(i).getCodd() + " Nome: " + lista_disciplinas.get(i).getNome());			
+			}
+			
+			
+			for(int i=0; i<lista_avaliacoes.size(); i++) {
+				System.out.println("coda: " + lista_avaliacoes.get(i).getCoda() + " Nome: " + lista_avaliacoes.get(i).getNome());			
+			}
+
+		
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -194,6 +218,8 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		
 		/*
 		System.out.println("ALUNO: ");

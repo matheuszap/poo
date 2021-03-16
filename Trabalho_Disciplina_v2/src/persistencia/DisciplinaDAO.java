@@ -16,7 +16,7 @@ import exceptions.UpdateException;
 
 public class DisciplinaDAO {
 	private static DisciplinaDAO instance = null;
-	private static AvaliacaoDAO avaliacaoDAO = null;
+	private static AvaliacaoDAO avaliacaoDAO;
 	
 	private PreparedStatement selectNewId;
 	private PreparedStatement insert;
@@ -61,7 +61,6 @@ public class DisciplinaDAO {
 			insert.setString(2, disciplina.getNome());
 			insert.setInt(3, disciplina.getCodigo());
 			insert.setString(4, disciplina.getDepartamento());
-			//insert.setArray(5, (Array) disciplina.getNotas()); //Perguntar
 			insert.setFloat(5, disciplina.getMedia_final());
 			insert.setFloat(6, disciplina.getNota_exame());
 			insert.setInt(7, cods);
@@ -99,12 +98,12 @@ public class DisciplinaDAO {
 				String nome = rs.getString(2);
 				int codigo = rs.getInt(3);
 				String departamento = rs.getString(4);
-				//Float[] notas = rs.getArray(5); 		
-				float media_final = rs.getFloat(6);
-				float nota_exame = rs.getFloat(7);
+				float media_final = rs.getFloat(5);
+				float nota_exame = rs.getFloat(6);
 				
 				Disciplina d = new Disciplina(id, nome, codigo, departamento, media_final, nota_exame, avaliacaoDAO.selectAll(id));
-		
+				
+				disciplinas.add(d);
 			}
 		
 		return disciplinas;
@@ -117,3 +116,11 @@ public class DisciplinaDAO {
 	}
 	
 }
+
+
+
+
+
+
+
+
