@@ -368,6 +368,12 @@ public class Sistema {
 			}		
 		}
 	}
+	 
+	public List<Aluno> listaAlunos() throws SQLException{
+		List<Aluno> la = alunoDAO.selectAll();
+		
+		return la;
+	}
 
 
 
