@@ -375,8 +375,11 @@ public class Sistema {
 		return la;
 	}
 
-
-
+	public List<Semestre> listaSemestres(Aluno aluno) throws SQLException {
+		List<Semestre> ls = semestreDAO.selectAll(aluno.getCodal());
+		
+		return ls;
+	}
 }
 
 

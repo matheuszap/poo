@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import persistencia.*;
@@ -43,6 +44,26 @@ public class TelaPrincipal extends JFrame{
 	private JTextField caixaTexto5 = new JTextField();
 	private JTextField caixaTexto6 = new JTextField();
 	private JButton botaoCadastrarSemestre = new JButton("Confirmar");
+	
+	private JLabel titulo_cadastrarDisciplina= new JLabel("Cadastrar Disciplina");
+	private JLabel infoCaixaTexto7 = new JLabel("Selecione o aluno:");
+	private JLabel infoCaixaTexto8 = new JLabel("Digite a fase:");
+	private JLabel infoCaixaTexto9 = new JLabel("Nome da disciplina:");
+	private JLabel infoCaixaTexto10 = new JLabel("Departamento:");
+	private JLabel infoCaixaTexto11 = new JLabel("Digite suas notas:");
+	private JLabel infoCaixaTexto12 = new JLabel("Código da disciplina:");
+
+	private JTextField caixaTexto8 = new JTextField();
+	private JTextField caixaTexto9 = new JTextField();
+	private JTextField caixaTexto10 = new JTextField();
+	private JTextField caixaTexto11_1 = new JTextField();
+	private JTextField caixaTexto11_2 = new JTextField();
+	private JTextField caixaTexto11_3 = new JTextField();
+	private JTextField caixaTexto12 = new JTextField();
+
+	private JButton botaoCadastrarDisciplina = new JButton("Confirmar");
+
+
 	
 	
 	public TelaPrincipal() {
@@ -108,6 +129,7 @@ public class TelaPrincipal extends JFrame{
 		painel1.add(infoCaixaTexto4);
 		
 		List<Aluno> la = s.listaAlunos();
+		
 		String[] nomes = new String[la.size()];
 		
 		for(int i=0; i<la.size(); i++) {
@@ -135,6 +157,59 @@ public class TelaPrincipal extends JFrame{
 		botaoCadastrarSemestre.setBounds(180, 180, 100, 20);
 		painel1.add(botaoCadastrarSemestre);
 		
+		///////////////////// Cadastrar Disciplina ////////////////////////
+		
+		titulo_cadastrarDisciplina.setBounds(320, 10, 200, 20);
+		painel1.add(titulo_cadastrarDisciplina);
+		
+		infoCaixaTexto7.setBounds(320, 40, 200, 20);
+		painel1.add(infoCaixaTexto7);
+		
+	    //DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel<>(nomes);
+	    JComboBox<String> cb2 = new JComboBox<>(model);
+	    
+	    cb2.setBounds(320, 60, 100, 20);
+	    painel1.add(cb2);
+	    
+		infoCaixaTexto8.setBounds(320, 80, 200, 20);
+		painel1.add(infoCaixaTexto8);
+
+		caixaTexto8.setBounds(320, 100, 100, 20);
+		painel1.add(caixaTexto8);
+		
+		infoCaixaTexto9.setBounds(320, 120, 200, 20);
+		painel1.add(infoCaixaTexto9);
+
+		caixaTexto9.setBounds(320, 140, 100, 20);
+		painel1.add(caixaTexto9);
+		
+		infoCaixaTexto12.setBounds(320, 160, 200, 20);
+		painel1.add(infoCaixaTexto12);
+
+		caixaTexto12.setBounds(320, 180, 100, 20);
+		painel1.add(caixaTexto12);
+		
+		infoCaixaTexto10.setBounds(320, 200, 200, 20);
+		painel1.add(infoCaixaTexto10);
+
+		caixaTexto10.setBounds(320, 220, 100, 20);
+		painel1.add(caixaTexto10);
+		
+		infoCaixaTexto11.setBounds(320, 240, 200, 20);
+		painel1.add(infoCaixaTexto11);
+
+		caixaTexto11_1.setBounds(320, 260, 100, 20);
+		painel1.add(caixaTexto11_1);
+		
+		caixaTexto11_2.setBounds(320, 280, 100, 20);
+		painel1.add(caixaTexto11_2);
+		
+		caixaTexto11_3.setBounds(320, 300, 100, 20);
+		painel1.add(caixaTexto11_3);
+		
+		botaoCadastrarDisciplina.setBounds(320, 340, 100, 20);
+		painel1.add(botaoCadastrarDisciplina);
+
 		
 	    /////////////////////////// BOTÕES ////////////////////////////////
 		botaoCadastrarAluno.addActionListener(new ActionListener() {
@@ -145,6 +220,8 @@ public class TelaPrincipal extends JFrame{
 				a.setCurso(caixaTexto3.getText());
 			
 				// ComboBox nome
+				
+				// aqui pega o nome do caixaTexto1 e joga pro outro campo
 				String nome = caixaTexto1.getText();
 		        model.addElement(nome);
 		        cb.setSelectedItem(nome);
@@ -156,12 +233,13 @@ public class TelaPrincipal extends JFrame{
 				
 				try {
 					s.cadastrarAluno(a);
+
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
-				System.out.println(a.getNome() + " - " + a.getCpf() + " - " + a.getCurso());
+				//System.out.println(a.getNome() + " - " + a.getCpf() + " - " + a.getCurso());
 			}
 		});
 		
@@ -173,35 +251,73 @@ public class TelaPrincipal extends JFrame{
 				semestre.setCodigo(Integer.parseInt(caixaTexto5.getText()));
 				semestre.setFase(Integer.parseInt(caixaTexto6.getText()));
 				
-				String nome = (String) cb.getSelectedItem();
-				Aluno aluno = new Aluno();
-				
-				// aluno não existe
-				for(int i=0; i<la.size(); i++) {
-					if(la.get(i).getNome() == nome) {
-						aluno = la.get(i);
-						System.out.println("teste - " +aluno.getNome());
-					}	
+				try {
+					List<Aluno> lista = atualizar();
+					
+					for(int i=0; i<lista.size(); i++) {
+						if(lista.get(i).getNome().equals((String) cb.getSelectedItem())) {
+							
+							s.cadastrarSemestre(lista.get(i), semestre);
+						}
+					}
+				} catch (ClassNotFoundException | SQLException | SelectException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 
-				
 				caixaTexto5.setText("");
 				caixaTexto6.setText("");
+			}
+		});
+		
+		botaoCadastrarDisciplina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Disciplina disciplina = new Disciplina();
+				
+				disciplina.setNome(caixaTexto9.getText());
+				disciplina.setCodigo(Integer.parseInt(caixaTexto12.getText()));
+				disciplina.setDepartamento(caixaTexto10.getText());
+				
+				List<Float> notas = new ArrayList<Float>();
+				notas.add(Float.parseFloat(caixaTexto11_1.getText()));
+				notas.add(Float.parseFloat(caixaTexto11_2.getText()));
+				notas.add(Float.parseFloat(caixaTexto11_3.getText()));
+				disciplina.setNotas(notas);
 				
 				
 				try {
-					s.cadastrarSemestre(aluno, semestre);
-				} catch (SQLException e) {
+					List<Aluno> lista2 = atualizar();
+					
+					for(int i=0; i<lista2.size(); i++) {
+						if(lista2.get(i).getNome().equals((String) cb2.getSelectedItem())) {
+							List<Semestre> lista_semestre = atualizar2(lista2.get(i));
+							
+							for(int j=0; j<lista_semestre.size(); j++) {
+								if(lista_semestre.get(j).getFase() == Integer.parseInt(caixaTexto8.getText())) {
+									s.cadastrarDisciplina(lista2.get(i), lista_semestre.get(j), disciplina);
+			
+								}
+							}
+						}
+					}
+
+					
+				} catch (ClassNotFoundException | SQLException | SelectException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
-				//System.out.println(aluno.getNome() + " - " + aluno.getCpf() + " - " + aluno.getCurso());
-				//System.out.println(semestre.getCodigo() + " - " + semestre.getFase());
-			}
+				caixaTexto8.setText("");
+				caixaTexto9.setText("");
+				caixaTexto10.setText("");
+				caixaTexto11_1.setText("");
+				caixaTexto11_2.setText("");
+				caixaTexto11_3.setText("");
+				caixaTexto12.setText("");
+				
+				
+			}		
 		});
-		
-	
 	    
 		////////////////////////////////////////////////////////////////////////
 		
@@ -216,6 +332,7 @@ public class TelaPrincipal extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		c.add(pane, BorderLayout.CENTER);
 		
+		
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -227,4 +344,49 @@ public class TelaPrincipal extends JFrame{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public List<Aluno> atualizar() throws ClassNotFoundException, SQLException, SelectException {
+		Sistema s = new Sistema();
+		
+		List<Aluno> la = s.listaAlunos();
+		
+		return la;
+	}
+	
+	public List<Semestre> atualizar2(Aluno aluno) throws ClassNotFoundException, SQLException, SelectException {
+		Sistema s = new Sistema();
+		
+		List<Semestre> ls = s.listaSemestres(aluno);
+		
+		return ls;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
