@@ -380,6 +380,19 @@ public class Sistema {
 		
 		return ls;
 	}
+	
+	public List<Disciplina> listaDisciplinas(Aluno aluno, Semestre semestre) throws SQLException {
+		List<Disciplina> ld = disciplinaDAO.selectAll(semestre.getCods());
+	
+		return ld;
+	}
+	
+	public List<Avaliacao> listaAvaliacoes(Aluno aluno, Semestre semestre, Disciplina disciplina) throws SQLException {
+		List<Avaliacao> lav = avaliacaoDAO.selectAll(disciplina.getCodd());
+		
+		return lav;
+	}
+	
 }
 
 

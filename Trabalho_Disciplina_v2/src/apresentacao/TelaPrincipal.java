@@ -45,14 +45,13 @@ public class TelaPrincipal extends JFrame{
 	private JTextField caixaTexto6 = new JTextField();
 	private JButton botaoCadastrarSemestre = new JButton("Confirmar");
 	
-	private JLabel titulo_cadastrarDisciplina= new JLabel("Cadastrar Disciplina");
+	private JLabel titulo_cadastrarDisciplina = new JLabel("Cadastrar Disciplina");
 	private JLabel infoCaixaTexto7 = new JLabel("Selecione o aluno:");
 	private JLabel infoCaixaTexto8 = new JLabel("Digite a fase:");
 	private JLabel infoCaixaTexto9 = new JLabel("Nome da disciplina:");
 	private JLabel infoCaixaTexto10 = new JLabel("Departamento:");
 	private JLabel infoCaixaTexto11 = new JLabel("Digite suas notas:");
 	private JLabel infoCaixaTexto12 = new JLabel("Código da disciplina:");
-
 	private JTextField caixaTexto8 = new JTextField();
 	private JTextField caixaTexto9 = new JTextField();
 	private JTextField caixaTexto10 = new JTextField();
@@ -60,8 +59,52 @@ public class TelaPrincipal extends JFrame{
 	private JTextField caixaTexto11_2 = new JTextField();
 	private JTextField caixaTexto11_3 = new JTextField();
 	private JTextField caixaTexto12 = new JTextField();
-
 	private JButton botaoCadastrarDisciplina = new JButton("Confirmar");
+	
+	private JLabel titulo_cadastrarAvaliacao = new JLabel("Cadastrar Avaliação");
+	private JLabel infoCaixaTexto13 = new JLabel("Selecione o aluno:");
+	private JLabel infoCaixaTexto14 = new JLabel("Digite a fase:");
+	private JLabel infoCaixaTexto15 = new JLabel("Digite a disciplina:");
+	private JLabel infoCaixaTexto16 = new JLabel("Nome da avaliação:");
+	private JLabel infoCaixaTexto17 = new JLabel("Código da avaliação:");
+	private JLabel infoCaixaTexto18 = new JLabel("Peso:");
+	private JLabel infoCaixaTexto19 = new JLabel("Data:");
+	private JTextField caixaTexto14 = new JTextField();
+	private JTextField caixaTexto15 = new JTextField();
+	private JTextField caixaTexto16 = new JTextField();
+	private JTextField caixaTexto17 = new JTextField();
+	private JTextField caixaTexto18 = new JTextField();
+	private JTextField caixaTexto19 = new JTextField();
+	private JButton botaoCadastrarAvaliacao = new JButton("Confirmar");
+
+	private JLabel titulo_removerAluno = new JLabel("Remover Aluno");
+	private JLabel infoCaixaTexto20 = new JLabel("Selecione o aluno:");
+	private JButton botaoRemoverAluno = new JButton("Confirmar");
+
+	private JLabel titulo_removerSemestre = new JLabel("Remover Semestre");
+	private JLabel infoCaixaTexto21 = new JLabel("Selecione o aluno:");
+	private JLabel infoCaixaTexto22 = new JLabel("Digite a fase:");
+	private JTextField caixaTexto22 = new JTextField();
+	private JButton botaoRemoverSemestre = new JButton("Confirmar");
+
+	private JLabel titulo_removerDisciplina = new JLabel("Remover Disciplina");
+	private JLabel infoCaixaTexto23 = new JLabel("Selecione o aluno:");
+	private JLabel infoCaixaTexto24 = new JLabel("Digite a fase:");
+	private JLabel infoCaixaTexto25 = new JLabel("Digite a disciplina:");
+	private JTextField caixaTexto24 = new JTextField();
+	private JTextField caixaTexto25 = new JTextField();
+	private JButton botaoRemoverDisciplina = new JButton("Confirmar");
+
+	private JLabel titulo_removerAvaliacao = new JLabel("Remover Avaliação");
+	private JLabel infoCaixaTexto26 = new JLabel("Selecione o aluno:");
+	private JLabel infoCaixaTexto27 = new JLabel("Digite a fase:");
+	private JLabel infoCaixaTexto28 = new JLabel("Digite a disciplina:");
+	private JLabel infoCaixaTexto29 = new JLabel("Nome da avaliação:");
+	private JTextField caixaTexto27 = new JTextField();
+	private JTextField caixaTexto28 = new JTextField();
+	private JTextField caixaTexto29 = new JTextField();
+	private JButton botaoRemoverAvaliacao = new JButton("Confirmar");
+
 
 
 	
@@ -71,8 +114,6 @@ public class TelaPrincipal extends JFrame{
 		
 		try {
 			Sistema s = new Sistema();
-
-		
 		
 		pane = new JTabbedPane();
 		setTitle("Sistema UDESC");
@@ -209,7 +250,161 @@ public class TelaPrincipal extends JFrame{
 		
 		botaoCadastrarDisciplina.setBounds(320, 340, 100, 20);
 		painel1.add(botaoCadastrarDisciplina);
+		
+		/////////////////////// Cadastrar Avaliação ///////////////////////
+		
+		titulo_cadastrarAvaliacao.setBounds(460, 10, 200, 20);
+		painel1.add(titulo_cadastrarAvaliacao);
+		
+		infoCaixaTexto13.setBounds(460, 40, 200, 20);
+		painel1.add(infoCaixaTexto13);
+		
+	    JComboBox<String> cb3 = new JComboBox<>(model);
+	    
+	    cb3.setBounds(460, 60, 100, 20);
+	    painel1.add(cb3);
+	    
+		infoCaixaTexto14.setBounds(460, 80, 200, 20);
+		painel1.add(infoCaixaTexto14);
+		
+		caixaTexto14.setBounds(460, 100, 100, 20);
+		painel1.add(caixaTexto14);
 
+		infoCaixaTexto15.setBounds(460, 120, 200, 20);
+		painel1.add(infoCaixaTexto15);
+		
+		caixaTexto15.setBounds(460, 140, 100, 20);
+		painel1.add(caixaTexto15);
+		
+		infoCaixaTexto16.setBounds(460, 160, 200, 20);
+		painel1.add(infoCaixaTexto16);
+		
+		caixaTexto16.setBounds(460, 180, 100, 20);
+		painel1.add(caixaTexto16);
+		
+		infoCaixaTexto17.setBounds(460, 200, 200, 20);
+		painel1.add(infoCaixaTexto17);
+		
+		caixaTexto17.setBounds(460, 220, 100, 20);
+		painel1.add(caixaTexto17);
+		
+		infoCaixaTexto18.setBounds(460, 240, 200, 20);
+		painel1.add(infoCaixaTexto18);
+		
+		caixaTexto18.setBounds(460, 260, 100, 20);
+		painel1.add(caixaTexto18);
+		
+		infoCaixaTexto19.setBounds(460, 280, 200, 20);
+		painel1.add(infoCaixaTexto19);
+		
+		caixaTexto19.setBounds(460, 300, 100, 20);
+		painel1.add(caixaTexto19);
+		
+		botaoCadastrarAvaliacao.setBounds(460, 340, 100, 20);
+		painel1.add(botaoCadastrarAvaliacao);
+		
+		////////////////////////// PAINEL 2 ///////////////////////////////
+		
+		////////////////////// Remover Aluno //////////////////////////////
+		
+		titulo_removerAluno.setBounds(40, 10, 200, 20);
+		painel2.add(titulo_removerAluno);
+		
+		infoCaixaTexto20.setBounds(40, 40, 200, 20);
+		painel2.add(infoCaixaTexto20);
+		
+	    JComboBox<String> cb4 = new JComboBox<>(model);
+
+		 cb4.setBounds(40, 60, 100, 20);
+		 painel2.add(cb4);
+		 
+		 botaoRemoverAluno.setBounds(40, 100, 100, 20);
+		 painel2.add(botaoRemoverAluno);
+		 
+		/////////////////////// Remover Semestre //////////////////////////
+		 
+		 titulo_removerSemestre.setBounds(180, 10, 200, 20);
+		 painel2.add(titulo_removerSemestre);
+		
+		infoCaixaTexto21.setBounds(180, 40, 200, 20);
+		painel2.add(infoCaixaTexto21);
+		
+		JComboBox<String> cb5 = new JComboBox<>(model);
+
+		 cb5.setBounds(180, 60, 100, 20);
+		 painel2.add(cb5);
+		
+		infoCaixaTexto22.setBounds(180, 80, 200, 20);
+		painel2.add(infoCaixaTexto22);
+		
+		caixaTexto22.setBounds(180, 100, 100, 20);
+		painel2.add(caixaTexto22);
+
+		 botaoRemoverSemestre.setBounds(180, 140, 100, 20);
+		 painel2.add(botaoRemoverSemestre);
+		 
+		 ///////////////////// Remover Disciplina /////////////////////////
+		
+		 titulo_removerDisciplina.setBounds(320, 10, 200, 20);
+		 painel2.add(titulo_removerDisciplina);
+		 
+		infoCaixaTexto23.setBounds(320, 40, 200, 20);
+		painel2.add(infoCaixaTexto23);
+		
+		JComboBox<String> cb6 = new JComboBox<>(model);
+
+		 cb6.setBounds(320, 60, 100, 20);
+		 painel2.add(cb6);
+		 
+		infoCaixaTexto24.setBounds(320, 80, 200, 20);
+		painel2.add(infoCaixaTexto24);
+		 
+		caixaTexto24.setBounds(320, 100, 100, 20);
+		painel2.add(caixaTexto24);
+		
+		infoCaixaTexto25.setBounds(320, 120, 200, 20);
+		painel2.add(infoCaixaTexto25);
+		 
+		caixaTexto25.setBounds(320, 140, 100, 20);
+		painel2.add(caixaTexto25);
+		
+		 botaoRemoverDisciplina.setBounds(320, 180, 100, 20);
+		 painel2.add(botaoRemoverDisciplina);
+		 
+		 //////////////////////// Remover Avaliação ///////////////////////
+		 
+		 titulo_removerAvaliacao.setBounds(460, 10, 200, 20);
+		 painel2.add(titulo_removerAvaliacao);
+		 
+		infoCaixaTexto26.setBounds(460, 40, 200, 20);
+		painel2.add(infoCaixaTexto26);
+			
+		JComboBox<String> cb7 = new JComboBox<>(model);
+
+		cb7.setBounds(460, 60, 100, 20);
+		painel2.add(cb7);
+		 
+		infoCaixaTexto27.setBounds(460, 80, 200, 20);
+		painel2.add(infoCaixaTexto27);
+		 
+		caixaTexto27.setBounds(460, 100, 100, 20);
+		painel2.add(caixaTexto27);
+		
+		infoCaixaTexto28.setBounds(460, 120, 200, 20);
+		painel2.add(infoCaixaTexto28);
+		 
+		caixaTexto28.setBounds(460, 140, 100, 20);
+		painel2.add(caixaTexto28);
+		
+		infoCaixaTexto29.setBounds(460, 160, 200, 20);
+		painel2.add(infoCaixaTexto29);
+		 
+		caixaTexto29.setBounds(460, 180, 100, 20);
+		painel2.add(caixaTexto29);
+		
+		 botaoRemoverAvaliacao.setBounds(460, 220, 100, 20);
+		 painel2.add(botaoRemoverAvaliacao);
+		
 		
 	    /////////////////////////// BOTÕES ////////////////////////////////
 		botaoCadastrarAluno.addActionListener(new ActionListener() {
@@ -239,7 +434,6 @@ public class TelaPrincipal extends JFrame{
 					e.printStackTrace();
 				}
 				
-				//System.out.println(a.getNome() + " - " + a.getCpf() + " - " + a.getCurso());
 			}
 		});
 		
@@ -318,6 +512,175 @@ public class TelaPrincipal extends JFrame{
 				
 			}		
 		});
+		
+		botaoCadastrarAvaliacao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Avaliacao avaliacao = new Avaliacao();
+				
+				avaliacao.setNome(caixaTexto16.getText());
+				avaliacao.setCodigo(Integer.parseInt(caixaTexto17.getText()));
+				avaliacao.setPeso(Integer.parseInt(caixaTexto18.getText()));
+				avaliacao.setData(caixaTexto19.getText());
+
+				try {
+					List<Aluno> lista3 = atualizar();
+					
+					for(int i=0; i<lista3.size(); i++) {
+						if(lista3.get(i).getNome().equals((String) cb3.getSelectedItem())) {
+							List<Semestre> lista_semestre2 = atualizar2(lista3.get(i));
+							
+							for(int j=0; j<lista_semestre2.size(); j++) {
+								if(lista_semestre2.get(j).getFase() == Integer.parseInt(caixaTexto14.getText())) {
+									List<Disciplina> lista_disciplina = atualizar3(lista3.get(i), lista_semestre2.get(j));
+									
+									for(int k=0; k<lista_disciplina.size(); k++) {
+										if(lista_disciplina.get(k).getNome().equals(caixaTexto15.getText())) {
+											s.cadastrarAvaliacao(lista3.get(i), lista_semestre2.get(j), lista_disciplina.get(k), avaliacao);
+										}
+									}
+								}
+							}
+						}
+					}
+					
+				} catch (ClassNotFoundException | SQLException | SelectException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				caixaTexto14.setText("");
+				caixaTexto15.setText("");
+				caixaTexto16.setText("");
+				caixaTexto17.setText("");
+				caixaTexto18.setText("");
+				caixaTexto19.setText("");
+				
+			}		
+		});
+		
+		botaoRemoverAluno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				try {
+					List<Aluno> lista4 = atualizar();
+					
+					for(int i=0; i<lista4.size(); i++) {
+						if(lista4.get(i).getNome().equals((String) cb4.getSelectedItem())) {
+							s.removerAluno(lista4.get(i));
+						}
+					}
+					
+				} catch (ClassNotFoundException | SQLException | SelectException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+		
+		botaoRemoverSemestre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					List<Aluno> lista5 = atualizar();
+					
+					for(int i=0; i<lista5.size(); i++) {
+						if(lista5.get(i).getNome().equals((String) cb5.getSelectedItem())) {
+							List<Semestre> lista_semestre3 = atualizar2(lista5.get(i));
+							
+							for(int j=0; j<lista_semestre3.size(); j++) {
+								if(lista_semestre3.get(j).getFase() == Integer.parseInt(caixaTexto22.getText())) {
+									s.removerSemestre(lista5.get(i), lista_semestre3.get(j));
+								}
+							}
+						}
+					}
+					
+					
+				} catch (ClassNotFoundException | SQLException | SelectException e) {
+					e.printStackTrace();
+				}
+				
+				caixaTexto22.setText("");
+				
+			}
+		});
+		
+		botaoRemoverDisciplina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					List<Aluno> lista6 = atualizar();
+					
+					for(int i=0; i<lista6.size(); i++) {
+						if(lista6.get(i).getNome().equals((String) cb6.getSelectedItem())) {
+							List<Semestre> lista_semestre4 = atualizar2(lista6.get(i));
+							
+							for(int j=0; j<lista_semestre4.size(); j++) {
+								if(lista_semestre4.get(j).getFase() == Integer.parseInt(caixaTexto24.getText())) {
+									List<Disciplina> lista_disciplina2 = atualizar3(lista6.get(i), lista_semestre4.get(j));
+									
+									for(int k=0; k<lista_disciplina2.size(); k++) {
+										if(lista_disciplina2.get(k).getNome().equals(caixaTexto25.getText())) {
+											s.removerDisciplina(lista6.get(i), lista_semestre4.get(j), lista_disciplina2.get(k));
+										}
+									}
+								}
+							}
+						}
+					}
+					
+					
+				} catch (ClassNotFoundException | SQLException | SelectException e) {
+					e.printStackTrace();
+				}
+				
+				caixaTexto24.setText("");
+				caixaTexto25.setText("");
+				
+			}
+		});
+		
+		botaoRemoverAvaliacao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					List<Aluno> lista7 = atualizar();
+					
+					for(int i=0; i<lista7.size(); i++) {
+						if(lista7.get(i).getNome().equals((String) cb7.getSelectedItem())) {
+							List<Semestre> lista_semestre5 = atualizar2(lista7.get(i));
+							
+							for(int j=0; j<lista_semestre5.size(); j++) {
+								if(lista_semestre5.get(j).getFase() == Integer.parseInt(caixaTexto27.getText())) {
+									List<Disciplina> lista_disciplina3 = atualizar3(lista7.get(i), lista_semestre5.get(j));
+									
+									for(int k=0; k<lista_disciplina3.size(); k++) {
+										if(lista_disciplina3.get(k).getNome().equals(caixaTexto28.getText())) {
+											List<Avaliacao> lista_avaliacao = atualizar4(lista7.get(i), lista_semestre5.get(j), lista_disciplina3.get(k));
+											
+											for(int l=0; l<lista_avaliacao.size(); l++) {											
+												if(lista_avaliacao.get(l).getNome().equals(caixaTexto29.getText())) {
+													s.removerAvaliacao(lista7.get(i), lista_semestre5.get(j), lista_disciplina3.get(k), lista_avaliacao.get(l));
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					
+					
+				} catch (ClassNotFoundException | SQLException | SelectException e) {
+					e.printStackTrace();
+				}
+				
+				caixaTexto27.setText("");
+				caixaTexto28.setText("");
+				caixaTexto29.setText("");
+			}
+		});
+		
 	    
 		////////////////////////////////////////////////////////////////////////
 		
@@ -328,7 +691,7 @@ public class TelaPrincipal extends JFrame{
 		
 		
 		Container c = getContentPane();
-		setSize(600, 400);
+		setSize(650, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		c.add(pane, BorderLayout.CENTER);
 		
@@ -361,6 +724,24 @@ public class TelaPrincipal extends JFrame{
 		
 		return ls;
 	}
+	
+	public List<Disciplina> atualizar3(Aluno aluno, Semestre semestre) throws ClassNotFoundException, SQLException, SelectException {
+		Sistema s = new Sistema();
+		
+		List<Disciplina> ld = s.listaDisciplinas(aluno, semestre);
+		
+		return ld;
+	}
+	
+	public List<Avaliacao> atualizar4(Aluno aluno, Semestre semestre, Disciplina disciplina) throws ClassNotFoundException, SQLException, SelectException {
+		Sistema s = new Sistema();
+		
+		List<Avaliacao> lav = s.listaAvaliacoes(aluno, semestre, disciplina);
+		
+		return lav;
+	}
+	
+	
 	
 }
 
