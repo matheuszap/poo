@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -20,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import persistencia.*;
@@ -154,9 +156,15 @@ public class TelaPrincipal extends JFrame{
 	private JTextField caixaTexto47 = new JTextField();
 	private JTextField caixaTexto48 = new JTextField();
 	private JButton botaoEditarAvaliacao = new JButton("Confirmar");
-
-
-
+	
+	
+	private JLabel titulo_consultarNotas = new JLabel("Consultar Notas");
+	private JLabel infoCaixaTexto49 = new JLabel("Selecione o aluno:");
+	private JLabel infoCaixaTexto50 = new JLabel("Digite a fase:");
+	private JLabel infoCaixaTexto51 = new JLabel("Digite a disciplina:");
+	private JTextField caixaTexto50 = new JTextField();
+	private JTextField caixaTexto51 = new JTextField();
+	private JButton botaoConsultarNotas = new JButton("Confirmar");
 	
 	public TelaPrincipal() {
 		Conexao.setSenha("11032007mz");
@@ -190,7 +198,7 @@ public class TelaPrincipal extends JFrame{
 		 painel1.setBorder(BorderFactory.createTitledBorder(border, "Cadastro de Informações", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 		 painel2.setBorder(BorderFactory.createTitledBorder(border, "Remover", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 		 painel3.setBorder(BorderFactory.createTitledBorder(border, "Editar Informações", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-		 painel4.setBorder(BorderFactory.createTitledBorder(border, "Gerar Relatório", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+		 painel4.setBorder(BorderFactory.createTitledBorder(border, "Consultar Notas e Gerar Relatório", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 		
 		//////////////////////// Cadastrar Aluno ////////////////////////////////
 		
@@ -465,7 +473,7 @@ public class TelaPrincipal extends JFrame{
 		 /////////////////////////// PAINEL 4 /////////////////////////////
 		 
 		 //////////////////////// Gerar Relatório /////////////////////////
-		 //titulo_GerarRelatorio.setBounds(270, 40, 200, 20);
+		 titulo_GerarRelatorio.setBounds(270, 40, 200, 20);
 		 painel4.add(titulo_GerarRelatorio);
 		 
 		 infoCaixaTexto30.setBounds(270, 60, 200, 20);
@@ -478,6 +486,32 @@ public class TelaPrincipal extends JFrame{
 		
 		 botaoGerarRelatorio.setBounds(270, 120, 100, 20);
 		 painel4.add(botaoGerarRelatorio);
+		 
+		 titulo_consultarNotas.setBounds(270, 160, 100, 20);
+		 painel4.add(titulo_consultarNotas);
+		 
+		 infoCaixaTexto49.setBounds(270, 180, 200, 20);
+		 painel4.add(infoCaixaTexto49);
+		 
+		 JComboBox<String> cb13 = new JComboBox<>(model);
+
+		 cb13.setBounds(270, 200, 100, 20);
+		 painel4.add(cb13);
+		 
+		 infoCaixaTexto50.setBounds(270, 220, 200, 20);
+		 painel4.add(infoCaixaTexto50);
+		 
+		 caixaTexto50.setBounds(270, 240, 100, 20);
+		 painel4.add(caixaTexto50);
+		 
+		 infoCaixaTexto51.setBounds(270, 260, 200, 20);
+		 painel4.add(infoCaixaTexto51);
+		 
+		 caixaTexto51.setBounds(270, 280, 100, 20);
+		 painel4.add(caixaTexto51);
+		 
+		 botaoConsultarNotas.setBounds(270, 320, 100, 20);
+		 painel4.add(botaoConsultarNotas);
 		 
 		 ////////////////////////// PAINEL 3 ////////////////////////////////
 		 
@@ -623,9 +657,7 @@ public class TelaPrincipal extends JFrame{
 		 
 		 botaoEditarAvaliacao.setBounds(460, 310, 100, 20);
 		 painel3.add(botaoEditarAvaliacao);
-		 
-		 
-		 
+		 		 
 		 
 	    /////////////////////////// BOTÕES ////////////////////////////////
 		botaoCadastrarAluno.addActionListener(new ActionListener() {
@@ -635,25 +667,25 @@ public class TelaPrincipal extends JFrame{
 				a.setCpf(Integer.parseInt(caixaTexto2.getText()));
 				a.setCurso(caixaTexto3.getText());
 			
-				// ComboBox nome
-				
-				// aqui pega o nome do caixaTexto1 e joga pro outro campo
+
 				String nome = caixaTexto1.getText();
 		        model.addElement(nome);
 		        cb.setSelectedItem(nome);
 		        
 		        
-				caixaTexto1.setText("");
-				caixaTexto2.setText("");
-				caixaTexto3.setText("");
-				
 				try {
 					s.cadastrarAluno(a);
+					
 
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+		        
+				caixaTexto1.setText("");
+				caixaTexto2.setText("");
+				caixaTexto3.setText("");
 				
 			}
 		});
@@ -1085,7 +1117,57 @@ public class TelaPrincipal extends JFrame{
 
 			}
 		});
-
+		
+		
+		botaoConsultarNotas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					List<Aluno> lista13 = atualizar();
+					
+					for(int i=0; i<lista13.size(); i++) {
+						if(lista13.get(i).getNome().equals((String) cb13.getSelectedItem())) {
+							List<Semestre> lista_semestre9 = atualizar2(lista13.get(i));
+							
+							for(int j=0; j<lista_semestre9.size(); j++) {
+								if(lista_semestre9.get(j).getFase() == Integer.parseInt(caixaTexto50.getText())) {									
+									List<Disciplina> lista_disciplina6 = atualizar3(lista13.get(i), lista_semestre9.get(j));
+									
+									for(int k=0; k<lista_disciplina6.size(); k++) {
+										if(lista_disciplina6.get(k).getNome().equals(caixaTexto51.getText())) {
+											if(lista_disciplina6.get(k).getMedia_final() >= 7) {
+												JOptionPane.showMessageDialog(null, "Sua média para a disciplina de " + lista_disciplina6.get(k).getNome() + " é: " + lista_disciplina6.get(k).getMedia_final()
+														+ "\n Você está aprovado!", "Consulta de Notas", JOptionPane.INFORMATION_MESSAGE);
+											}
+											
+											if(lista_disciplina6.get(k).getMedia_final() < 7 && lista_disciplina6.get(k).getMedia_final() >= 1.7) {
+												JOptionPane.showMessageDialog(null, "Sua média para a disciplina de " + lista_disciplina6.get(k).getNome() + " é: " + lista_disciplina6.get(k).getMedia_final()
+														+ "\n Nota necessária para o exame: " + lista_disciplina6.get(k).getNota_exame(), "Consulta de Notas",  JOptionPane.INFORMATION_MESSAGE);
+											}
+											
+											if(lista_disciplina6.get(k).getMedia_final() < 1.7) {
+												JOptionPane.showMessageDialog(null, "Você está reprovado!", "Consulta de Notas", JOptionPane.INFORMATION_MESSAGE);
+											}										
+										}
+									}
+								}
+							}
+						}
+					}
+			
+			
+			}catch (ClassNotFoundException | SQLException | SelectException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+			
+				caixaTexto50.setText("");
+				caixaTexto51.setText("");
+				
+			}
+			
+		});
+		
 		////////////////////////////////////////////////////////////////////////
 		
 		pane.addTab("Cadastrar", null, painel1, "Cadastrar aluno, semestre, disciplina ou avaliações");
@@ -1148,30 +1230,3 @@ public class TelaPrincipal extends JFrame{
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

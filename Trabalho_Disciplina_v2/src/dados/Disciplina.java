@@ -141,6 +141,12 @@ public class Disciplina {
 		return "Disciplina [nome=" + nome + ", codigo=" + codigo + ", departamento=" + departamento + ", notas=" + notas
 				+ ", media_final=" + media_final + ", nota_exame=" + nota_exame + ", avaliacoes=" + avaliacoes + "]";
 	}
+	
+	
+
+	public String mostrarNotas() {
+		return "notas=" + notas + "]";
+	}
 
 	public boolean equals(Object obj) {
 		if (this == obj)
