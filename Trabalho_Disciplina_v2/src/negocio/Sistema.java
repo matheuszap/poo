@@ -181,7 +181,7 @@ public class Sistema {
 						for(int k=0; k<ld.size(); k++) {
 							if(ld.get(k).getCodigo() == disciplina.getCodigo()) {
 								disciplina.setCodd(ld.get(k).getCodd());
-								
+								/*
 								float media = calcularMedia(aluno, semestre, disciplina);
 								disciplina.setMedia_final(media);
 								
@@ -189,6 +189,7 @@ public class Sistema {
 									float media_exame = calcularNotaExame(aluno, semestre, disciplina);
 									disciplina.setNota_exame(media_exame);
 								}
+								*/
 								
 								disciplinaDAO.update(disciplina);
 							}
